@@ -12,7 +12,7 @@ namespace TestProject1
         [Test]
         public void StatusCodeTest()
         {
-            // arrange
+            // arrange Test
             RestClient client = new RestClient("http://api.zippopotam.us");
             RestRequest request = new RestRequest("nl/3825", Method.GET);
 
