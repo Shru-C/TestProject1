@@ -89,6 +89,23 @@ namespace TestProject1
         }
 
         [Test]
+        public void NotFoundStatusCode()
+        {
+            // arrange Test
+            RestClient client = new RestClient("http://api.zippopotam.us");
+            RestRequest request = new RestRequest("us/123456787", Method.GET);
+
+            // act
+            IRestResponse response = client.Execute(request);
+
+
+            // assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+        }
+
+
+
+        [Test]
         public void PostRequestStatusCodeTest()
         {
             // arrange
@@ -103,5 +120,45 @@ namespace TestProject1
             // assert command
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
         }
+
+        [Test]
+        public void PostRequestContentTypeTest()
+        {
+            // arrange
+            RestClient client = new RestClient("https://reqres.in/");
+            RestRequest request = new RestRequest("api/users", Method.POST);
+            var requestboby = new UserCreation { name = "morpheus", job = "leader" };
+            request.AddJsonBody(requestboby);
+
+            // act
+            IRestResponse response = client.Execute(request);
+
+            // assert command
+            Assert.That(response.ContentType, Is.EqualTo("application/json; charset=utf-8"));
+
+        }
+
+            [Test]
+            
+            public void PutRequestStatusCodeTest()
+            {
+                // arrange
+                RestClient client = new RestClient("https://reqres.in/");
+                RestRequest request = new RestRequest("api/users", Method.PUT);
+                var requestboby = new UserCreation { name = "morpheus", job = "zion resident" };
+                request.AddJsonBody(requestboby);
+
+                // act
+                IRestResponse response = client.Execute(request);
+                UserCreation userCreation =
+                    new JsonDeserializer().
+                    Deserialize<UserCreation>(response);
+
+                // assert command
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(userCreation.job, Is.EqualTo("zion resident"));
+            }
+
+
+        }
     }
-}
