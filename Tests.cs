@@ -95,7 +95,7 @@ namespace TestProject1
             RestClient client = new RestClient("http://api.zippopotam.us");
             RestRequest request = new RestRequest("us/123456787", Method.GET);
 
-            // act
+            // act Command
             IRestResponse response = client.Execute(request);
 
 
