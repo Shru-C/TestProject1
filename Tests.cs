@@ -108,7 +108,7 @@ namespace TestProject1
         [Test]
         public void PostRequestStatusCodeTest()
         {
-            // arrange
+            // arrange Command
             RestClient client = new RestClient("https://reqres.in/");
             RestRequest request = new RestRequest("api/users", Method.POST);
             var requestboby = new UserCreation { name = "morpheus", job = "leader" };
